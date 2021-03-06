@@ -11,6 +11,7 @@ config = {
     'color_enough_open': None,
     'effect_needs_open': 'BREATHE',
     'effect_enough_open': None,
+    'enabled': True
 }
 
 _last_signal = None
@@ -27,6 +28,8 @@ async def notify(
     global _last_signal
     global config
 
+    if not config['enabled']:
+        pass
     delete_needs_open = config['color_needs_open'] is None or config['effect_needs_open'] is None
     delete_enough_open = config['color_enough_open'] is None or config['effect_enough_open'] is None
 
