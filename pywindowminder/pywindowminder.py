@@ -1,3 +1,4 @@
+import asyncio
 import importlib.machinery
 import datetime
 from enum import Enum
@@ -61,6 +62,10 @@ class Pywindowminder:
                 else:
                     self.receivers.append(mod)
 
+    """Registers a window open event
+    Keyword Arguments:
+        timestamp {Optional[int]} -- Timestamp of the event. Uses the current time if None (default: {None})
+    """
     def register_open(self, timestamp:Optional[int] = None):
         if not timestamp:
             timestamp = int(datetime.datetime.now().timestamp())
@@ -68,6 +73,10 @@ class Pywindowminder:
         self.timeline[timestamp] = Status.OPEN
         logging.info('Opened. Timestamp: %d', timestamp)
 
+    """Registers a window close event
+    Keyword Arguments:
+        timestamp {Optional[int]} -- Timestamp of the event. Uses the current time if None (default: {None})
+    """
     def register_close(self, timestamp:Optional[int] = None):
         if not timestamp:
             timestamp = int(datetime.datetime.now().timestamp())
@@ -96,6 +105,13 @@ class Pywindowminder:
             seconds_window_open += timestamp - last_event_ts
         return seconds_window_open
 
+    """Checks window open duration and notifies all receivers"""
+    def check_and_notify_block(self):
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.check_and_notify())
+
+
+    """Checks window open duration and notifies all receivers"""
     async def check_and_notify(self):
         logging.info('Checking...')
         seconds_window_open = self._seconds_open_last_hour()
