@@ -52,13 +52,13 @@ class Pywindowminder:
                 if not (hasattr(mod, 'name') and hasattr(mod, 'version')):
                     logging.debug('Skipping %s', file)
                     continue
-                logging.info('Found receiver: %s v%s', mod.name, mod.version)
-                if mod.name in receiver_config:
+                logging.info('Found receiver: %s v%s', mod.name, mod.version) # pylint: disable=no-member
+                if mod.name in receiver_config:  # pylint: disable=no-member
                     try:
-                        mod.configure(receiver_config[mod.name])
+                        mod.configure(receiver_config[mod.name]) # pylint: disable=no-member
                         self.receivers.append(mod)
                     except Exception as e:
-                        logging.exception('Error configuring receiver %s. Disabling! %s', mod.name, e)
+                        logging.exception('Error configuring receiver %s. Disabling! %s', mod.name, e) # pylint: disable=no-member
                 else:
                     self.receivers.append(mod)
 
