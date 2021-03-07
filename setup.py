@@ -11,5 +11,9 @@ setup(
    install_requires=['wheel', 'aiohttp'], #external packages as dependencies
    python_requires=">=3.6",
    include_package_data = True,
-
+   keywords='window daskeyboard smarthome',
+   project_urls={
+    'Source': 'https://github.com/hutattedonmyarm/pywindowminder',
+    'Tracker': 'https://github.com/hutattedonmyarm/pywindowminder/issues',
+},
 )
