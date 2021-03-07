@@ -35,4 +35,7 @@ A plugin needs to define a notify function. Accepted are any of the following si
 - `def notify(needs_opening: bool, seconds_window_open: int, required_open_seconds_per_hour: int)`
 - `def notify(needs_opening: bool)`
 
-A fully working example is provided with `__main__.py`. This sets up a webserver running on `localhost:8080` and accepts POST requests to `/opened`, `/closed`, and `/check`
+A more complete package can be found when using `pywindowminder.pywindowminder.Server`. Simply instantiate a new `Server` object, and call `server.start_server()`.
+Note that `server.start_server()` is async, so it needs to be run suing an event loop.
+
+A fully working example is provided with `__main__.py`. This sets up a webserver running on `0.0.0.0:8080` and accepts POST requests to `/opened`, `/closed`, and `/check`
