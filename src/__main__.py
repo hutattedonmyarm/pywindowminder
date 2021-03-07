@@ -1,6 +1,5 @@
 import asyncio
-from pywindowminder.pywindowminder import Pywindowminder
-from pywindowminder.server import Server
+from pywindowminder import Server
 import logging
 import sys
 

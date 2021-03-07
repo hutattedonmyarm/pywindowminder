@@ -33,7 +33,6 @@ class Pywindowminder:
             os.path.join(os.path.dirname(__file__), 'receivers'),
         ]
 
-        #self.timeline = {int(datetime.datetime.now().timestamp()): Status.UNDETERMINED}
         self.timeline = {}
         self.required_open_seconds_per_hour = required_open_seconds_per_hour
 
@@ -102,7 +101,7 @@ class Pywindowminder:
         for ts in events_in_last_hour:
             status = events_in_last_hour[ts]
             if status == last_status:
-                continue #shouldn't happen
+                continue
             diff = ts - last_event_ts
             logging.debug('Event at %d: %s. Seconds since last: %d', ts, status, diff)
             if status == Status.CLOSED: #now closed, was open

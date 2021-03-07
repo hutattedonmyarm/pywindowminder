@@ -12,7 +12,7 @@ An example receiver using the Das Keyboard REST API is provided.
 A receiver plugin is a Python file, in the `receivers` directory. This directory is configurable in the `Pywindowminder` constructor. By default, it's `receivers`, in the working directory. It needs to define a `name` and `version`. It may contain function `def configure(configuration):` which is called during the initialization. A configuration can be provided to the contructor of `Pywindowminder`:
 
 ```
-from pywindowminder.pywindowminder import Pywindowminder
+from pywindowminder import Pywindowminder
 config = {
     'Das Keyboard local REST client': {
         'key': 'KEY_SCROLL_LOCK',
@@ -35,7 +35,7 @@ A plugin needs to define a notify function. Accepted are any of the following si
 - `def notify(needs_opening: bool, seconds_window_open: int, required_open_seconds_per_hour: int)`
 - `def notify(needs_opening: bool)`
 
-A more complete package can be found when using `pywindowminder.pywindowminder.Server`. Simply instantiate a new `Server` object, and call `server.start_server()`.
+A more complete package can be found when using `Server`. Simply impoer `from pywindowminder import Server`, instantiate a new `Server` object, and call `server.start_server()`.
 Note that `server.start_server()` is async, so it needs to be run suing an event loop.
 
 A fully working example is provided with `__main__.py`. This sets up a webserver running on `0.0.0.0:8080` and accepts POST requests to `/opened`, `/closed`, and `/check`
