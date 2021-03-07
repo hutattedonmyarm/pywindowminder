@@ -91,6 +91,14 @@ class Pywindowminder:
         seconds_window_open = 0
         last_event_ts = ts_hour_ago
         last_status = Status.UNDETERMINED
+
+        if self.timeline and not events_in_last_hour:
+            #No events in the last hour, but before. Check last known status
+            last_event_ts = max(self.timeline)
+            last_status = self.timeline[last_event_ts]
+            logging.debug('No events during the last hour. Using last known status %s at %d', last_status, last_event_ts)
+            return 60*60 if last_status == Status.OPEN else 0
+
         for ts in events_in_last_hour:
             status = events_in_last_hour[ts]
             if status == last_status:
@@ -103,6 +111,7 @@ class Pywindowminder:
             last_event_ts = ts
         if last_status == Status.OPEN:
             seconds_window_open += timestamp - last_event_ts
+        self.timeline = events_in_last_hour #Only save last hour of events
         return seconds_window_open
 
     """Checks window open duration and notifies all receivers"""
